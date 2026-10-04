@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lakefront Cars — Chicago car rental</title>
+  <style>
+    :root {
+      --ink: #12161c;
+      --muted: #5c6570;
+      --paper: #f3f5f7;
+      --card: #ffffff;
+      --line: #d8dee6;
+      --lake: #163a5f;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.45;
+    }
+    a { color: inherit; }
+    .strip {
+      background: var(--ink);
+      color: #f3f5f7;
+      text-align: center;
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+    .strip a { color: #f3f5f7; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 28px;
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .brand {
+      font-weight: 750;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    nav { display: flex; gap: 20px; font-size: 15px; }
+    nav a { text-decoration: none; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      display: inline-block;
+      background: var(--lake);
+      color: #fff;
+      text-decoration: none;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+    .phone {
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .header-actions .btn { padding: 10px 14px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 42px 28px 20px;
+      align-items: start;
+    }
+    h1 {
+      font-family: "Iowan Old Style", Palatino, Georgia, serif;
+      font-size: clamp(40px, 5vw, 62px);
+      line-height: 0.96;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px;
+    }
+    .lede { font-size: 18px; color: var(--muted); max-width: 460px; margin: 0 0 20px; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .facts {
+      display: flex;
+      gap: 22px;
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .facts strong { display: block; font-size: 18px; }
+    .facts span { color: var(--muted); font-size: 13px; }
+    .hero-photo {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      min-height: 420px;
+    }
+    .hero-photo img, .card img, .place img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-photo img { min-height: 420px; object-position: center 72%; }
+    section { max-width: 1120px; margin: 0 auto; padding: 28px 28px 10px; }
+    h2, h3 {
+      font-family: "Iowan Old Style", Palatino, Georgia, serif;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+    h3 { font-size: 34px; }
+    .sub { color: var(--muted); margin: 0 0 16px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .card img { height: 180px; }
+    .card div { padding: 14px 14px 16px; }
+    .card b { display: block; margin-bottom: 6px; }
+    .card span, .place figcaption { color: var(--muted); font-size: 14px; }
+    .places { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 12px; }
+    .place { margin: 0; }
+    .place img {
+      height: 260px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+    .place figcaption { margin-top: 8px; }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .panel h2 { font-size: 28px; }
+    label { display: block; font-size: 13px; font-weight: 700; margin: 12px 0 6px; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px 12px;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .submit { width: 100%; margin-top: 14px; }
+    .note { color: var(--muted); font-size: 12px; }
+    .ok { display: none; background: #eef6ee; border: 1px solid #c9e0c9; border-radius: 8px; padding: 10px 12px; margin-top: 12px; }
+    .rent {
+      max-width: none;
+      background: var(--ink);
+      color: #f3f5f7;
+      margin-top: 28px;
+      padding: 40px 28px 48px;
+    }
+    .rent-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .rent h3, .rent .sub, .rent a { color: #f3f5f7; }
+    .rent .panel p, .rent .note { color: var(--muted); }
+    footer {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 22px 28px 32px;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    @media (max-width: 860px) {
+      nav { display: none; }
+      .hero, .grid, .places, .rent-inner { grid-template-columns: 1fr; }
+      header, .hero, section, footer, .rent { padding-left: 16px; padding-right: 16px; }
+      .hero-photo, .hero-photo img { min-height: 240px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="strip"><a href="#rent">Get a quote to rent this website</a></div>
+  <header>
+    <a class="brand" href="#top">Lakefront Cars</a>
+    <nav>
+      <a href="#fleet">Cars</a>
+      <a href="#pickup">Pickup</a>
+      <a href="#book">Book</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn" href="#rent">Get a quote</a>
+      <a class="phone" href="tel:+13125550194">(312) 555-0194</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <h1>A car in Chicago, ready when you land.</h1>
+        <p class="lede">Sedans and SUVs for O’Hare, Midway, and downtown. You pick the car up yourself. No shuttle line.</p>
+        <div class="row">
+          <a class="btn" href="#book">Check dates</a>
+          <a class="btn ghost" href="#fleet">See the cars</a>
+        </div>
+        <div class="facts">
+          <div><strong>O’Hare</strong><span>and Midway</span></div>
+          <div><strong>Downtown</strong><span>Loop and River North</span></div>
+          <div><strong>Daily</strong><span>or a full week</span></div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="photos/chicago-car.jpg" alt="Black car parked along the Chicago River with downtown towers behind it">
+      </div>
+    </div>
+
+    <section id="fleet">
+      <h3>Cars on the lot</h3>
+      <p class="sub">Three kinds. The price is on the booking form, not hidden at the counter.</p>
+      <div class="grid">
+        <article class="card">
+          <img src="photos/chicago-car.jpg" alt="Black car in front of the Chicago skyline">
+          <div><b>City car</b><span>For the Loop, dinners, and a weekend that stays in town.</span></div>
+        </article>
+        <article class="card">
+          <img src="photos/suv.jpg" alt="White SUV parked on a winter road">
+          <div><b>SUV</b><span>Room for bags and a drive out of the city when the weather turns.</span></div>
+        </article>
+        <article class="card">
+          <img src="photos/sedan.jpg" alt="Red coupe parked outside a glass building">
+          <div><b>Weekend car</b><span>A sharper car when the trip is the point.</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="pickup">
+      <h3>Where you pick up</h3>
+      <p class="sub">Downtown is in the photos. Airport lots are at O’Hare and Midway.</p>
+      <div class="places">
+        <figure class="place">
+          <img src="photos/skyline.jpg" alt="Chicago skyline seen from a wide city road">
+          <figcaption>Drive in on a clear day. Downtown pickup is near the Loop.</figcaption>
+        </figure>
+        <figure class="place">
+          <img src="photos/night.jpg" alt="Night traffic on a downtown Chicago street by the Tribune building">
+          <figcaption>Evening returns downtown, lights on Michigan Avenue.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="book">
+      <div class="panel">
+        <h2>Tell us the days</h2>
+        <p class="sub">This preview does not send the booking. A paid site would email the rental company.</p>
+        <form id="book-form">
+          <label for="name">Name</label>
+          <input id="name" name="name" required>
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" required>
+          <label for="pickup">Pickup</label>
+          <select id="pickup" name="pickup">
+            <option>O’Hare</option>
+            <option>Midway</option>
+            <option>Downtown Loop</option>
+            <option>River North</option>
+          </select>
+          <label for="car">Car</label>
+          <select id="car" name="car">
+            <option>City car</option>
+            <option>SUV</option>
+            <option>Weekend car</option>
+          </select>
+          <label for="note">Dates</label>
+          <textarea id="note" name="note" placeholder="Example: Friday 4pm through Monday noon."></textarea>
+          <button class="btn submit" type="submit">Request this car</button>
+          <p class="ok" id="book-ok">Saved on this page only. Nothing was sent.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="rent" id="rent">
+      <div class="rent-inner">
+        <div>
+          <h3>Get a quote to rent this website</h3>
+          <p class="sub">This page is the sample for a Chicago car rental. Send your business details and you will get a monthly price. The domain is purchased after you pay.</p>
+          <p>Email <a href="mailto:support@sierrabuy.co">support@sierrabuy.co</a></p>
+          <p>Call or text <a href="tel:+17736303109">(773) 630-3109</a></p>
+        </div>
+        <form class="panel" id="rent-form">
+          <h2>Rental quote</h2>
+          <p class="sub">This opens an email to support@sierrabuy.co with what you type here.</p>
+          <label for="rent-name">Your name</label>
+          <input id="rent-name" name="name" required>
+          <label for="rent-business">Business name</label>
+          <input id="rent-business" name="business" required>
+          <label for="rent-phone">Phone</label>
+          <input id="rent-phone" name="phone" type="tel" required>
+          <label for="rent-email">Email</label>
+          <input id="rent-email" name="email" type="email" required>
+          <label for="rent-city">City</label>
+          <input id="rent-city" name="city" value="Chicago" required>
+          <label for="rent-trade">What you sell</label>
+          <select id="rent-trade" name="trade">
+            <option selected>Car rental</option>
+            <option>Roofing</option>
+            <option>HVAC</option>
+            <option>Something else</option>
+          </select>
+          <button class="btn submit" type="submit">Send quote request</button>
+          <p class="ok" id="rent-ok">Your email app should open a message to support@sierrabuy.co. Send it to get the quote.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div>Lakefront Cars is a sample. To rent a site like this, use the quote form.</div>
+    <div><a href="mailto:support@sierrabuy.co">support@sierrabuy.co</a></div>
+  </footer>
+  <script>
+    document.getElementById("book-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      document.getElementById("book-ok").style.display = "block";
+    });
+    document.getElementById("rent-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      var data = new FormData(event.currentTarget);
+      var body = [
+        "Website rental quote",
+        "",
+        "Name: " + data.get("name"),
+        "Business: " + data.get("business"),
+        "Phone: " + data.get("phone"),
+        "Email: " + data.get("email"),
+        "City: " + data.get("city"),
+        "Trade: " + data.get("trade")
+      ].join("\n");
+      document.getElementById("rent-ok").style.display = "block";
+      window.location.href = "mailto:support@sierrabuy.co?subject=" + encodeURIComponent("Website rental quote") + "&body=" + encodeURIComponent(body);
+    });
+  </script>
+</body>
+</html>
