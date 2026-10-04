@@ -49,7 +49,7 @@
       text-decoration: none;
       font-size: 18px;
     }
-    nav { display: flex; gap: 20px; font-size: 15px; }
+    nav { display: flex; gap: 18px; font-size: 15px; flex-wrap: wrap; }
     nav a { text-decoration: none; }
     .header-actions { display: flex; align-items: center; gap: 10px; }
     .btn {
@@ -96,7 +96,7 @@
       letter-spacing: -0.03em;
       margin: 0 0 14px;
     }
-    .lede { font-size: 18px; color: var(--muted); max-width: 460px; margin: 0 0 20px; }
+    .lede { font-size: 18px; color: var(--muted); max-width: 480px; margin: 0 0 20px; }
     .row { display: flex; gap: 10px; flex-wrap: wrap; }
     .facts {
       display: flex;
@@ -129,6 +129,8 @@
     h3 { font-size: 34px; }
     .sub { color: var(--muted); margin: 0 0 16px; }
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
@@ -138,7 +140,32 @@
     .card img { height: 180px; }
     .card div { padding: 14px 14px 16px; }
     .card b { display: block; margin-bottom: 6px; }
-    .card span, .place figcaption { color: var(--muted); font-size: 14px; }
+    .price {
+      float: right;
+      font-style: normal;
+      font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      background: #e8eef5;
+      color: var(--lake);
+      border-radius: 999px;
+      padding: 3px 8px;
+    }
+    .card span, .place figcaption, .quiet { color: var(--muted); font-size: 14px; }
+    .specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .specs li {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
     .places { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 12px; }
     .place { margin: 0; }
     .place img {
@@ -147,6 +174,48 @@
       border: 1px solid var(--line);
     }
     .place figcaption { margin-top: 8px; }
+    .desk {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .desk b { display: block; font-size: 16px; margin-bottom: 4px; }
+    .desk p { margin: 6px 0 0; }
+    .table-wrap {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: auto;
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 680px; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: top; }
+    th { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .step em {
+      display: block;
+      font-style: normal;
+      font-weight: 750;
+      color: var(--lake);
+      margin-bottom: 6px;
+    }
+    .faq details {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .faq summary { cursor: pointer; font-weight: 700; }
+    .faq p { margin: 8px 0 0; color: var(--muted); }
+    .split { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 16px; align-items: start; }
     .panel {
       background: var(--card);
       border: 1px solid var(--line);
@@ -154,6 +223,7 @@
       padding: 20px;
     }
     .panel h2 { font-size: 28px; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     label { display: block; font-size: 13px; font-weight: 700; margin: 12px 0 6px; }
     input, select, textarea {
       width: 100%;
@@ -165,6 +235,14 @@
       background: #fff;
     }
     textarea { min-height: 80px; resize: vertical; }
+    .estimate {
+      margin-top: 14px;
+      background: #e8eef5;
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .estimate strong { display: block; font-size: 22px; }
+    .estimate span { color: var(--muted); font-size: 13px; }
     .submit { width: 100%; margin-top: 14px; }
     .note { color: var(--muted); font-size: 12px; }
     .ok { display: none; background: #eef6ee; border: 1px solid #c9e0c9; border-radius: 8px; padding: 10px 12px; margin-top: 12px; }
@@ -196,8 +274,9 @@
       gap: 12px;
     }
     @media (max-width: 860px) {
-      nav { display: none; }
-      .hero, .grid, .places, .rent-inner { grid-template-columns: 1fr; }
+      header { flex-wrap: wrap; }
+      nav { width: 100%; order: 3; font-size: 14px; }
+      .hero, .grid, .grid-2, .grid-4, .places, .steps, .split, .rent-inner, .pair { grid-template-columns: 1fr; }
       header, .hero, section, footer, .rent { padding-left: 16px; padding-right: 16px; }
       .hero-photo, .hero-photo img { min-height: 240px; }
     }
@@ -209,7 +288,9 @@
     <a class="brand" href="#top">Lakefront Cars</a>
     <nav>
       <a href="#fleet">Cars</a>
+      <a href="#rates">Rates</a>
       <a href="#pickup">Pickup</a>
+      <a href="#rules">Rules</a>
       <a href="#book">Book</a>
     </nav>
     <div class="header-actions">
@@ -222,15 +303,15 @@
     <div class="hero">
       <div>
         <h1>A car in Chicago, ready when you land.</h1>
-        <p class="lede">Sedans and SUVs for O’Hare, Midway, and downtown. You pick the car up yourself. No shuttle line.</p>
+        <p class="lede">Sedans and SUVs for O’Hare, Midway, the Loop, and River North. You walk to a numbered stall. There is no shuttle line and no counter upsell.</p>
         <div class="row">
           <a class="btn" href="#book">Check dates</a>
-          <a class="btn ghost" href="#fleet">See the cars</a>
+          <a class="btn ghost" href="#rates">See the rates</a>
         </div>
         <div class="facts">
-          <div><strong>O’Hare</strong><span>and Midway</span></div>
-          <div><strong>Downtown</strong><span>Loop and River North</span></div>
-          <div><strong>Daily</strong><span>or a full week</span></div>
+          <div><strong>$59</strong><span>city car, per day</span></div>
+          <div><strong>150 mi</strong><span>included each day</span></div>
+          <div><strong>24 hrs</strong><span>free to cancel before</span></div>
         </div>
       </div>
       <div class="hero-photo">
@@ -240,65 +321,272 @@
 
     <section id="fleet">
       <h3>Cars on the lot</h3>
-      <p class="sub">Three kinds. The price is on the booking form, not hidden at the counter.</p>
+      <p class="sub">Three kinds. The day rate below is the car itself. Tolls, fuel you use, and optional extras are listed under rates.</p>
       <div class="grid">
         <article class="card">
           <img src="photos/chicago-car.jpg" alt="Black car in front of the Chicago skyline">
-          <div><b>City car</b><span>For the Loop, dinners, and a weekend that stays in town.</span></div>
+          <div>
+            <b>City car <em class="price">$59/day</em></b>
+            <span>A compact for the Loop, dinners, and a weekend that stays in town. Easy to park on a metered street.</span>
+            <ul class="specs">
+              <li>5 seats</li>
+              <li>2 checked bags</li>
+              <li>Automatic</li>
+              <li>$349 a week</li>
+            </ul>
+          </div>
         </article>
         <article class="card">
-          <img src="photos/suv.jpg" alt="White SUV parked on a winter road">
-          <div><b>SUV</b><span>Room for bags and a drive out of the city when the weather turns.</span></div>
+          <img src="photos/suv.jpg" alt="White SUV on a winter road">
+          <div>
+            <b>SUV <em class="price">$89/day</em></b>
+            <span>Room for four people and a full set of luggage. Winter tires stay on from November through March.</span>
+            <ul class="specs">
+              <li>5 seats</li>
+              <li>4 checked bags</li>
+              <li>All-wheel drive</li>
+              <li>$529 a week</li>
+            </ul>
+          </div>
         </article>
         <article class="card">
           <img src="photos/sedan.jpg" alt="Red coupe parked outside a glass building">
-          <div><b>Weekend car</b><span>A sharper car when the trip is the point.</span></div>
+          <div>
+            <b>Weekend car <em class="price">$129/day</em></b>
+            <span>A coupe when the drive is the point: the lake, a dinner in the West Loop, a night out.</span>
+            <ul class="specs">
+              <li>4 seats</li>
+              <li>2 small bags</li>
+              <li>Rear-wheel drive</li>
+              <li>$749 a week</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="rates">
+      <h3>What you pay</h3>
+      <p class="sub">Sample rates for Lakefront Cars. A paid site would pull the live price for the dates you pick. Tax is about 20% in Chicago and is added at the desk.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Car</th>
+              <th>Day</th>
+              <th>Week</th>
+              <th>Miles included</th>
+              <th>After that</th>
+              <th>Card hold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>City car</td>
+              <td>$59</td>
+              <td>$349</td>
+              <td>150 a day, or 1,050 a week</td>
+              <td>$0.39 a mile</td>
+              <td>$200</td>
+            </tr>
+            <tr>
+              <td>SUV</td>
+              <td>$89</td>
+              <td>$529</td>
+              <td>150 a day, or 1,050 a week</td>
+              <td>$0.39 a mile</td>
+              <td>$200</td>
+            </tr>
+            <tr>
+              <td>Weekend car</td>
+              <td>$129</td>
+              <td>$749</td>
+              <td>150 a day, or 1,050 a week</td>
+              <td>$0.39 a mile</td>
+              <td>$500</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid-2" style="margin-top:12px">
+        <article class="desk">
+          <b>Included in the day rate</b>
+          <p class="quiet">State-minimum liability, the miles above, a roadside number on the key tag, and a desk at the airport or downtown. Cancel free until 24 hours before pickup.</p>
+        </article>
+        <article class="desk">
+          <b>Added only if you ask</b>
+          <p class="quiet">Damage waiver $19 a day on the city car and SUV, $29 on the weekend car. Extra driver $12 a day. Child seat $12 a day. Driver under 25 pays $25 a day.</p>
         </article>
       </div>
     </section>
 
     <section id="pickup">
       <h3>Where you pick up</h3>
-      <p class="sub">Downtown is in the photos. Airport lots are at O’Hare and Midway.</p>
+      <p class="sub">Four desks. You can pick up at one and return at another. There is no drop-off outside Chicago.</p>
       <div class="places">
         <figure class="place">
           <img src="photos/skyline.jpg" alt="Chicago skyline seen from a wide city road">
-          <figcaption>Drive in on a clear day. Downtown pickup is near the Loop.</figcaption>
+          <figcaption>Daytime downtown. The Loop desk is a short walk from the river.</figcaption>
         </figure>
         <figure class="place">
           <img src="photos/night.jpg" alt="Night traffic on a downtown Chicago street by the Tribune building">
-          <figcaption>Evening returns downtown, lights on Michigan Avenue.</figcaption>
+          <figcaption>Evening returns. Michigan Avenue and the river stays are lit until late.</figcaption>
         </figure>
+      </div>
+      <div class="grid-4" style="margin-top:12px">
+        <article class="desk">
+          <b>O’Hare</b>
+          <p class="quiet">Arrivals, door 3. Open 6 a.m. to midnight. About 30 to 60 minutes to the Loop on the Kennedy, longer in rush hour.</p>
+        </article>
+        <article class="desk">
+          <b>Midway</b>
+          <p class="quiet">Arrivals curb, lane B. Open 6 a.m. to 11 p.m. About 25 to 40 minutes to the Loop on the Stevenson.</p>
+        </article>
+        <article class="desk">
+          <b>Downtown Loop</b>
+          <p class="quiet">Sample stall on Wacker Drive by the river. Open 8 a.m. to 7 p.m. Best if you are already in a hotel downtown.</p>
+        </article>
+        <article class="desk">
+          <b>River North</b>
+          <p class="quiet">Sample stall near Ohio and Wells. Open 8 a.m. to 8 p.m. Ten minutes from the Loop when the lights are with you.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="how">
+      <h3>How a rental goes</h3>
+      <p class="sub">The car is in a numbered stall. The desk texts the stall number when you are 20 minutes out.</p>
+      <div class="steps">
+        <article class="step"><em>1. Hold the car</em>Send the dates. The desk holds that car for two hours while you confirm.</article>
+        <article class="step"><em>2. Show the license</em>The name on the license matches the name on the card. Out-of-state licenses are fine.</article>
+        <article class="step"><em>3. Walk to the stall</em>Keys are in a lockbox on the window. Photos of any marks are already on the rental sheet.</article>
+        <article class="step"><em>4. Bring it back</em>Same fuel level. After hours, drop the keys in the box by the desk and text the stall number.</article>
+      </div>
+    </section>
+
+    <section id="rules">
+      <h3>Rules on the lot</h3>
+      <p class="sub">Written here so the desk does not surprise you. This is a sample company, not a real rental contract.</p>
+      <div class="faq">
+        <details open>
+          <summary>Who can drive</summary>
+          <p>Age 21 or older, with a license held at least one year. Drivers 21 to 24 pay $25 a day. An extra driver is $12 a day and must be at the desk with a license before the car leaves. The weekend car is 25 and older.</p>
+        </details>
+        <details>
+          <summary>Card, hold, and fuel</summary>
+          <p>A credit card in the driver’s name. Debit cards are not accepted on this sample. The hold is $200, or $500 on the weekend car, and drops off after the car is checked in. Bring it back with the same fuel. A lower tank is billed at the pump price plus a $15 service fee.</p>
+        </details>
+        <details>
+          <summary>Late flights and late returns</summary>
+          <p>Put the flight number on the form. The car is held three hours after the scheduled landing. A return more than 59 minutes late is another day. After midnight, use the key box and text (312) 555-0194 with the stall number.</p>
+        </details>
+        <details>
+          <summary>Winter, tolls, and parking</summary>
+          <p>November through March the SUV has winter tires. City streets are salted, so a car wash is on you if you want one. Tolls on the Kennedy, the Jane Addams, and I-294 bill to the car and show up later on the card. Downtown meters and garages are not included. DuSable Lake Shore Drive is the usual way up the lakefront.</p>
+        </details>
+        <details>
+          <summary>Damage, seats, and tickets</summary>
+          <p>The day rate includes state-minimum liability only. The damage waiver is optional and is not an insurance policy. Illinois wants riders under 8 in a child seat; reserve one at $12 a day. Parking tickets and red-light tickets stay with the driver.</p>
+        </details>
+        <details>
+          <summary>Changes and cancellation</summary>
+          <p>Cancel or move the days until 24 hours before pickup and pay nothing. Inside 24 hours the desk keeps one day. One-way between the four Chicago desks is free. Cars do not go to another city.</p>
+        </details>
       </div>
     </section>
 
     <section id="book">
-      <div class="panel">
-        <h2>Tell us the days</h2>
-        <p class="sub">This preview does not send the booking. A paid site would email the rental company.</p>
-        <form id="book-form">
-          <label for="name">Name</label>
-          <input id="name" name="name" required>
-          <label for="phone">Phone</label>
-          <input id="phone" name="phone" type="tel" required>
-          <label for="pickup">Pickup</label>
-          <select id="pickup" name="pickup">
-            <option>O’Hare</option>
-            <option>Midway</option>
-            <option>Downtown Loop</option>
-            <option>River North</option>
-          </select>
-          <label for="car">Car</label>
-          <select id="car" name="car">
-            <option>City car</option>
-            <option>SUV</option>
-            <option>Weekend car</option>
-          </select>
-          <label for="note">Dates</label>
-          <textarea id="note" name="note" placeholder="Example: Friday 4pm through Monday noon."></textarea>
-          <button class="btn submit" type="submit">Request this car</button>
-          <p class="ok" id="book-ok">Saved on this page only. Nothing was sent.</p>
-        </form>
+      <div class="split">
+        <div class="panel">
+          <h2>Tell us the days</h2>
+          <p class="sub">This preview prices the car on the page and does not send the booking. A paid site would email the rental company.</p>
+          <form id="book-form">
+            <div class="pair">
+              <div>
+                <label for="name">Name</label>
+                <input id="name" name="name" required>
+              </div>
+              <div>
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" required>
+              </div>
+            </div>
+            <div class="pair">
+              <div>
+                <label for="start">Pickup date</label>
+                <input id="start" name="start" type="date" required>
+              </div>
+              <div>
+                <label for="end">Return date</label>
+                <input id="end" name="end" type="date" required>
+              </div>
+            </div>
+            <div class="pair">
+              <div>
+                <label for="pickup">Pickup desk</label>
+                <select id="pickup" name="pickup">
+                  <option>O’Hare</option>
+                  <option>Midway</option>
+                  <option>Downtown Loop</option>
+                  <option>River North</option>
+                </select>
+              </div>
+              <div>
+                <label for="dropoff">Return desk</label>
+                <select id="dropoff" name="dropoff">
+                  <option>Same as pickup</option>
+                  <option>O’Hare</option>
+                  <option>Midway</option>
+                  <option>Downtown Loop</option>
+                  <option>River North</option>
+                </select>
+              </div>
+            </div>
+            <label for="car">Car</label>
+            <select id="car" name="car">
+              <option>City car</option>
+              <option>SUV</option>
+              <option>Weekend car</option>
+            </select>
+            <div class="pair">
+              <div>
+                <label for="flight">Flight number, if you have one</label>
+                <input id="flight" name="flight" placeholder="Example: UA 456">
+              </div>
+              <div>
+                <label for="extras">Extras</label>
+                <select id="extras" name="extras">
+                  <option value="0">None</option>
+                  <option value="12">Child seat, $12 a day</option>
+                  <option value="12">Extra driver, $12 a day</option>
+                  <option value="19">Damage waiver</option>
+                </select>
+              </div>
+            </div>
+            <label for="note">Notes</label>
+            <textarea id="note" name="note" placeholder="Example: landing Friday at 4pm, two bags, return Monday noon."></textarea>
+            <div class="estimate" id="estimate">
+              <strong id="estimate-total">$59</strong>
+              <span id="estimate-note">City car, one day, before tax. Extras and the card hold are separate.</span>
+            </div>
+            <button class="btn submit" type="submit">Request this car</button>
+            <p class="ok" id="book-ok">Saved on this page only. Nothing was sent.</p>
+          </form>
+        </div>
+        <div>
+          <article class="desk">
+            <b>Before you drive off</b>
+            <p class="quiet">Match the stall number to the text. Walk around the car. The sheet already lists chips and scrapes. Add anything new before you leave the lot.</p>
+          </article>
+          <article class="desk" style="margin-top:12px">
+            <b>A normal downtown day</b>
+            <p class="quiet">Meters downtown run about $2 to $7 an hour. A garage for the evening is often $20 to $50. The river stalls are easier than circling the Loop for a spot.</p>
+          </article>
+          <article class="desk" style="margin-top:12px">
+            <b>Call the desk</b>
+            <p class="quiet">Sample desk (312) 555-0194. Open with the O’Hare hours, 6 a.m. to midnight. This number is not a real rental company.</p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -337,12 +625,45 @@
     </section>
   </main>
   <footer>
-    <div>Lakefront Cars is a sample. To rent a site like this, use the quote form.</div>
+    <div>Lakefront Cars is a sample. Rates and desks are examples. To rent a site like this, use the quote form.</div>
     <div><a href="mailto:support@sierrabuy.co">support@sierrabuy.co</a></div>
   </footer>
   <script>
+    var dayRates = { "City car": 59, "SUV": 89, "Weekend car": 129 };
+    var waiver = { "City car": 19, "SUV": 19, "Weekend car": 29 };
+
+    function rentalDays() {
+      var start = document.getElementById("start").value;
+      var end = document.getElementById("end").value;
+      if (!start || !end) return 1;
+      var ms = new Date(end) - new Date(start);
+      var days = Math.round(ms / 86400000);
+      return days > 0 ? days : 1;
+    }
+
+    function updateEstimate() {
+      var car = document.getElementById("car").value;
+      var days = rentalDays();
+      var base = dayRates[car] * days;
+      var extra = document.getElementById("extras");
+      var extraEach = Number(extra.value);
+      if (extra.options[extra.selectedIndex].text.indexOf("Damage waiver") === 0) {
+        extraEach = waiver[car];
+      }
+      var total = base + extraEach * days;
+      document.getElementById("estimate-total").textContent = "$" + total;
+      document.getElementById("estimate-note").textContent =
+        car + ", " + days + (days === 1 ? " day" : " days") + ", before tax. Extras are inside this figure. The card hold is separate.";
+    }
+
+    ["car", "start", "end", "extras"].forEach(function (id) {
+      document.getElementById(id).addEventListener("change", updateEstimate);
+      document.getElementById(id).addEventListener("input", updateEstimate);
+    });
+
     document.getElementById("book-form").addEventListener("submit", function (event) {
       event.preventDefault();
+      updateEstimate();
       document.getElementById("book-ok").style.display = "block";
     });
     document.getElementById("rent-form").addEventListener("submit", function (event) {
